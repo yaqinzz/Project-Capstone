@@ -1,5 +1,5 @@
 import { Download, FileText, ImageIcon, Loader2 } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { PageContainer } from "~/components/layout/PageContainer";
 import { SectionContainer } from "~/components/layout/SectionContainer";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
@@ -167,7 +167,7 @@ const Prediction = () => {
     setIsAnalyzing(true);
 
     // Make sure we have valid image data URLs before proceeding
-    if (!profilePreviewUrl || !profilePreviewUrl.startsWith("data:image/")) {
+    if (!profilePreviewUrl?.startsWith("data:image/")) {
       alert(
         "Gambar profil tidak valid atau belum diunggah. Silakan unggah kembali.",
       );
@@ -175,7 +175,7 @@ const Prediction = () => {
       return;
     }
 
-    if (!xrayPreviewUrl || !xrayPreviewUrl.startsWith("data:image/")) {
+    if (!xrayPreviewUrl?.startsWith("data:image/")) {
       alert(
         "Gambar X-ray tidak valid atau belum diunggah. Silakan unggah kembali.",
       );
@@ -196,8 +196,10 @@ const Prediction = () => {
           hour: "2-digit",
           minute: "2-digit",
         }),
-      }; // Add validation to ensure image data URLs are still valid
-      if (!profilePreviewUrl || !profilePreviewUrl.startsWith("data:image/")) {
+      };
+
+      // Add validation to ensure image data URLs are still valid
+      if (!profilePreviewUrl?.startsWith("data:image/")) {
         alert(
           "Profile image data is not valid. Please re-upload the profile image.",
         );
@@ -205,7 +207,7 @@ const Prediction = () => {
         return;
       }
 
-      if (!xrayPreviewUrl || !xrayPreviewUrl.startsWith("data:image/")) {
+      if (!xrayPreviewUrl?.startsWith("data:image/")) {
         alert(
           "X-ray image data is not valid. Please re-upload the X-ray image.",
         );
@@ -233,10 +235,12 @@ const Prediction = () => {
     e.preventDefault();
     setProfileDragging(true);
   }, []);
+
   const handleProfileDragLeave = useCallback(() => {
     setProfileDragging(false);
   }, []);
-  const handleProfileFileSelection = (file: File) => {
+
+  const handleProfileFileSelection = useCallback((file: File) => {
     // Check file type (only JPEG and PNG)
     if (file.type === "image/jpeg" || file.type === "image/png") {
       // Check file size (max 5MB)
@@ -256,7 +260,8 @@ const Prediction = () => {
     } else {
       alert("Please upload only JPEG or PNG image files.");
     }
-  };
+  }, []);
+
   const handleProfileDrop = useCallback(
     (e: React.DragEvent) => {
       e.preventDefault();
@@ -279,6 +284,7 @@ const Prediction = () => {
       handleProfileFileSelection(files[0]);
     }
   };
+
   // X-ray image handlers
   const handleXrayDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -288,7 +294,8 @@ const Prediction = () => {
   const handleXrayDragLeave = useCallback(() => {
     setXrayDragging(false);
   }, []);
-  const handleXrayFileSelection = (file: File) => {
+
+  const handleXrayFileSelection = useCallback((file: File) => {
     // Check file type (only JPEG and PNG)
     if (file.type === "image/jpeg" || file.type === "image/png") {
       // Check file size (max 5MB)
@@ -308,7 +315,7 @@ const Prediction = () => {
     } else {
       alert("Please upload only JPEG or PNG image files.");
     }
-  };
+  }, []);
 
   const handleXrayDrop = useCallback(
     (e: React.DragEvent) => {

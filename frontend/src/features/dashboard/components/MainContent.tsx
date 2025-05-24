@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Card, CardDescription, CardTitle } from "~/components/ui/card";
-import content from "public/images/contenct.svg";
 
 const MainContent = () => {
   return (
@@ -31,7 +30,7 @@ const MainContent = () => {
       <div className="mt-4 w-full sm:mt-6 sm:w-4/5 md:w-3/4 lg:w-1/2">
         <Image
           alt="Data visualization content"
-          src={content}
+          src="images/contenct.svg"
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 80vw, (max-width: 1024px) 75vw, 50vw"
           style={{
             width: "100%",
