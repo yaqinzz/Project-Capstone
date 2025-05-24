@@ -13,7 +13,7 @@ export const HeadMetaData: React.FC<{
   // ogImageUrl = env.NEXT_PUBLIC_OG_IMAGE_URL,
   pathname = "",
 }) => {
-  const defaultTitle = "Tugas Akhir";
+  const defaultTitle = "project-capstone";
 
   const baseUrl =
     process.env.NODE_ENV === "development"
