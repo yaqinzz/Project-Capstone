@@ -43,12 +43,14 @@ export const Header = () => {
           Home
         </Link>
         <Link
-          href={"/dataset"}
+          href={"/prediction"}
           className={`text-lg hover:cursor-pointer ${
-            usePathname() === "/dataset" ? "border-b-4 border-purple-500" : ""
+            usePathname() === "/prediction"
+              ? "border-b-4 border-purple-500"
+              : ""
           }`}
         >
-          Dataset
+          Prediction
         </Link>
       </nav>
       <div className="flex gap-4">
