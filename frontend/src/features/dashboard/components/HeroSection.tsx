@@ -25,7 +25,7 @@ const HeroSection = () => {
           outcomes
         </h3>
 
-        <Link href="/dataset" className="w-0">
+        <Link href="/prediction" className="w-0">
           <Button
             className="mt-4 bg-purple-500 font-bold text-white"
             variant={"secondary"}
