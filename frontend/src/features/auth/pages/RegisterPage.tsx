@@ -68,7 +68,7 @@ const RegisterPage = () => {
             {/* CONTINUE WITH GOOGLE */}
           </CardContent>
           <CardFooter className="flex flex-col gap-6">
-            <div className="flex w-full items-center justify-between gap-x-4">
+            {/* <div className="flex w-full items-center justify-between gap-x-4">
               <div className="h-[2px] w-full border-t-2" />
               <p className="flex-1 text-nowrap text-sm text-muted-foreground">
                 Or continue with
@@ -78,7 +78,7 @@ const RegisterPage = () => {
             <Button variant="secondary" className="w-full" size="lg">
               <FcGoogle />
               Create an Account with Google
-            </Button>
+            </Button> */}
             <p>
               Already have an account?{" "}
               <Link href="/login" className="font-bold text-purple-600">

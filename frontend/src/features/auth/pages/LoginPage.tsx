@@ -78,7 +78,7 @@ const LoginPage = () => {
             </Form>
           </CardContent>
           <CardFooter className="flex flex-col gap-6">
-            <div className="flex w-full items-center justify-between gap-x-4">
+            {/* <div className="flex w-full items-center justify-between gap-x-4">
               <div className="h-[2px] w-full border-t-2" />
               <p className="flex-1 text-nowrap text-sm text-muted-foreground">
                 Atau lanjut dengan
@@ -93,7 +93,7 @@ const LoginPage = () => {
             >
               <FcGoogle />
               Buat Akun dengan Google
-            </Button>
+            </Button> */}
             <p>
               Belum punya akun?{" "}
               <Link href="/register" className="font-bold text-purple-600">
