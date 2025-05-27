@@ -1,12 +1,14 @@
+import tensorflow as tf
 import numpy as np
+from PIL import Image
 from flask import Flask, request, render_template
 #import pneumonia
 
 #Create an app object using the Flask class. 
 app = Flask(__name__)
 
-#Load the trained model. (Pickle file)
-model = pneumonia.load(open('models/model.pnm', 'rb'))
+#Load the trained model. (pneumonia file)
+model = tf.keras.models.load_model('pneumonia_model.h5')
 
 #Define the route to be home. 
 #The decorator below links the relative route of the URL to the function it is decorating.
