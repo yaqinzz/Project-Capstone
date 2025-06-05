@@ -26,11 +26,13 @@ const MainContent = () => {
             Facilitates better treatment planning.
           </CardDescription>
         </Card>
-      </div>
+      </div>{" "}
       <div className="mt-4 w-full sm:mt-6 sm:w-4/5 md:w-3/4 lg:w-1/2">
         <Image
           alt="Data visualization content"
           src="images/contenct.svg"
+          width={800}
+          height={450}
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 80vw, (max-width: 1024px) 75vw, 50vw"
           style={{
             width: "100%",

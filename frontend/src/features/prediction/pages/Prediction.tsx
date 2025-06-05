@@ -11,6 +11,13 @@ import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group";
 import Image from "next/image";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { env } from "~/env";
+
+// Define interface for the API response
+interface PredictionResponse {
+  label: string;
+  probability: number;
+}
 
 const Prediction = () => {
   const [patientData, setPatientData] = useState({
@@ -183,51 +190,57 @@ const Prediction = () => {
       return;
     }
 
-    // Simulate API call with setTimeout
-    setTimeout(() => {
-      // Mock analysis result - in real app, this would come from your API
-      const mockResult = {
-        prediction: Math.random() > 0.5 ? "Normal" : "Pneumonia",
-        confidence: Math.floor(Math.random() * 20) + 80, // Random number between 80-99
-        date: new Date().toLocaleDateString("id-ID", {
+    // Make sure we have the xray file
+    if (!xrayFile) {
+      alert("File X-ray tidak ditemukan. Silakan unggah kembali.");
+      setIsAnalyzing(false);
+      return;
+    } // Create form data for API request
+    const formData = new FormData();
+    formData.append("file", xrayFile); // Make the real API call to the prediction endpoint
+    fetch(`${env.NEXT_PUBLIC_PREDICTION_API_URL}/predict`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json() as Promise<PredictionResponse>;
+      })
+      .then((data: PredictionResponse) => {
+        console.log("Prediction API response:", data);
+
+        // Format date for display
+        const currentDate = new Date().toLocaleDateString("id-ID", {
           day: "numeric",
           month: "long",
           year: "numeric",
           hour: "2-digit",
           minute: "2-digit",
-        }),
-      };
+        });
 
-      // Add validation to ensure image data URLs are still valid
-      if (!profilePreviewUrl?.startsWith("data:image/")) {
-        alert(
-          "Profile image data is not valid. Please re-upload the profile image.",
-        );
+        // Create analysis result from API response
+        const result = {
+          prediction: data.label === "NORMAL" ? "Normal" : "Pneumonia",
+          confidence: Math.round(data.probability * 100), // Convert probability to percentage
+          date: currentDate,
+        };
+
+        setAnalysisResult(result);
         setIsAnalyzing(false);
-        return;
-      }
+        setShowAnalysis(true);
 
-      if (!xrayPreviewUrl?.startsWith("data:image/")) {
-        alert(
-          "X-ray image data is not valid. Please re-upload the X-ray image.",
-        );
+        // Scroll to results after a short delay
+        setTimeout(() => {
+          analysisResultRef.current?.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      })
+      .catch((error) => {
+        console.error("Error predicting X-ray:", error);
+        alert("Terjadi kesalahan saat memproses X-ray. Silakan coba lagi.");
         setIsAnalyzing(false);
-        return;
-      }
-
-      // Log the state to ensure images are available
-      console.log("Profile image data URL available:", !!profilePreviewUrl);
-      console.log("X-ray image data URL available:", !!xrayPreviewUrl);
-
-      setAnalysisResult(mockResult);
-      setIsAnalyzing(false);
-      setShowAnalysis(true);
-
-      // Scroll to results after a short delay
-      setTimeout(() => {
-        analysisResultRef.current?.scrollIntoView({ behavior: "smooth" });
-      }, 100);
-    }, 3000); // Simulate 3 second processing time
+      });
   };
 
   // Profile photo handlers
