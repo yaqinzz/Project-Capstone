@@ -11,16 +11,16 @@ const MainContent = () => {
         <Card className="flex w-full flex-col gap-2 p-4 sm:p-6 md:max-w-[400px]">
           <CardTitle className="text-xl sm:text-2xl">Purpose</CardTitle>
           <CardDescription className="text-base sm:text-lg md:text-xl">
-            Investigate the efficiency of Random Forest.
+            Investigate the efficiency of CNN model.
           </CardDescription>
           <CardDescription className="text-base sm:text-lg md:text-xl">
-            Enhance model accuracy with Optuna optimization.
+            Implementasi ML model for better good.
           </CardDescription>
         </Card>
         <Card className="flex w-full flex-col gap-2 p-4 sm:p-6 md:max-w-[400px]">
           <CardTitle className="text-xl sm:text-2xl">Usefulness</CardTitle>
           <CardDescription className="text-base sm:text-lg md:text-xl">
-            Improves early detection of lung cancer.
+            Improves early detection of pneumonia.
           </CardDescription>
           <CardDescription className="text-base sm:text-lg md:text-xl">
             Facilitates better treatment planning.

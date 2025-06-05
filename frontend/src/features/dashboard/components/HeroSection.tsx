@@ -18,11 +18,10 @@ const HeroSection = () => {
       <div className="absolute left-0 top-0 h-full w-full rounded-none bg-[#171A1F66]" />
       <div className="absolute flex flex-col gap-2 p-4 md:gap-10 md:px-28 md:text-left">
         <h1 className="text-4xl font-bold text-white md:w-[1200px] md:text-6xl">
-          Random Forest Algorithm Implementation for Lung Cancer
+          Convolutional Neural Network Implementation for Pneumonia Detection{" "}
         </h1>
         <h3 className="text-xl text-white md:text-2xl">
-          Optimizing classification accuracy with Optuna for better health
-          outcomes
+          Optimizing machine learning for accurate pneumonia detections.
         </h3>
 
         <Link href="/prediction" className="w-0">
