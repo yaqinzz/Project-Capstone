@@ -13,25 +13,30 @@ Pneumonia menjadi salah satu penyakit mematikan yang terus mengalami peningkatan
 Dataset yang digunakan bersumber dari kaggle dengan link sebagai berikut https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia. Dataset ini berisi gambar berlabel pneumonia dan normal. 
 
 ## Model yang digunakan
-Model yang digunakan adalah model transfer learning MobileNetV2. Model transfer learning ini digunakan karena memiliki keunggulan sebagai berikut : 
-1. Efisien dan Ringan : MobileNetV2 didesain untuk perangkat dengan keterbatasan memori dan komputasi (mobile, edge).
-2. Pre-trained pada ImageNet : Sudah belajar dari lebih dari 1 juta gambar umum → membantu mengenali pola visual bahkan dari dataset medis.
-3. Transfer Learning Siap Pakai : Layer awal sudah peka terhadap pola tekstur, bentuk, dan tepi — cocok untuk X-ray dada.
-4. Menghindari Overfitting : Karena hanya sedikit parameter yang dilatih (base model di-freeze), lebih aman untuk dataset kecil/menengah. 
-5. Performa Tinggi, Waktu Latih Cepat : Walaupun ringan, performanya kompetitif dibanding model besar (ResNet, VGG) dalam banyak tugas klasifikasi.
+Model yang digunakan dalam projek ini adalah model Convolutional Neural Network (CNN) dengan arsitektur Sequential untuk tugas klasifikasi 2 kelas (binary classification) mengingat dataset yang digunakan hanya memiliki dua kelas yaitu pneumonia dan normal. Berikut adalah arsitektur CNN yang kami gunakan dalam projek ini : 
+Arsitektur Model CNN: `sequential_2`
+| Layer (type)                  | Output Shape           | Param #      |
+|------------------------------|------------------------|--------------|
+| **Conv2D** (`conv2d_3`)      | (None, 224, 224, 32)   | 896          |
+| **BatchNormalization**       | (None, 224, 224, 32)   | 128          |
+| **MaxPooling2D**             | (None, 112, 112, 32)   | 0            |
+| **Conv2D** (`conv2d_4`)      | (None, 112, 112, 64)   | 18,496       |
+| **BatchNormalization**       | (None, 112, 112, 64)   | 256          |
+| **MaxPooling2D**             | (None, 56, 56, 64)     | 0            |
+| **Conv2D** (`conv2d_5`)      | (None, 56, 56, 128)    | 73,856       |
+| **BatchNormalization**       | (None, 56, 56, 128)    | 512          |
+| **MaxPooling2D**             | (None, 28, 28, 128)    | 0            |
+| **Flatten**                  | (None, 100352)         | 0            |
+| **Dense** (`dense_3`)        | (None, 128)            | 12,845,184   |
+| **Dropout** (`dropout_3`)    | (None, 128)            | 0            |
+| **Dense** (`dense_4`)        | (None, 2)              | 258          |
 
-Berikut kami sertakan arsitektur model yang digunakan : 
-### 🧠 Arsitektur Model (MobileNetV2)
+**Total Parameters**: 12,939,586 (≈ 49.36 MB)  
+**Trainable Parameters**: 12,939,138  
+**Non-trainable Parameters**: 448
 
-| Layer (Type)                | Output Shape       | Param #    |
-|----------------------------|--------------------|------------|
-| mobilenetv2_1.00_150       | (None, 5, 5, 1280)  | 2,257,984  |
-| GlobalAveragePooling2D     | (None, 1280)        | 0          |
-| Dense                      | (None, 128)         | 163,968    |
-| Dense                      | (None, 1)           | 129        |
-| **Total Parameters**       |                    | **2,422,081** |
-| **Trainable Parameters**   |                    | **164,097**  |
-| **Non-trainable Parameters** |                  | **2,257,984** |
+Kami menggunakan 
+
 
 ## Hasil Evaluasi Model
 
@@ -43,4 +48,7 @@ Berikut adalah panduan singkat penggunaan sistem deteksi Pneumonia:
 3. Silahkan isi data identitas pada halaman prediction
 4. Upload gambar X-ray pasien pada kolom upload
 5. Lakukan submit data pasien, lalu tunggu beberapa saat agar sistem melakukan prediksi pada gambar X-ray.
-6. Anda dapat secara langsung melihat hasilnya, semakin tinggi tingkat kepercayaan akan hasil pneumonia maka anda kemungkinan besar anda didiagnosis terkena pneumonia dan membutuhkan penanganan lebih lanjut. 
+6. Anda dapat secara langsung melihat hasilnya, semakin tinggi tingkat kepercayaan akan hasil pneumonia maka anda kemungkinan besar anda didiagnosis terkena pneumonia dan membutuhkan penanganan lebih lanjut.
+
+## Referensi
+
