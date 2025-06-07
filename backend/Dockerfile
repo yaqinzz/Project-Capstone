@@ -1,24 +1,21 @@
-FROM python:3.10.10
+FROM public.ecr.aws/lambda/python:3.10
 
-WORKDIR /app
-
-# Upgrade pip dan tools dasar
-RUN pip install --upgrade pip setuptools wheel
-
-# Salin requirements terlebih dahulu agar bisa cache layer pip install
+# Salin model dan requirements
+COPY model_pneumonia.keras ${LAMBDA_TASK_ROOT}/model_pneumonia.keras
 COPY requirements.txt .
 
-# Install semua package termasuk TensorFlow 2.18.0
-RUN pip install --no-cache-dir --retries 10 --timeout 600 --progress-bar off \
-    --compile --prefer-binary -r requirements.txt
+# Install dependencies dari requirements.txt
+RUN pip3 install -r requirements.txt \
+    --target "${LAMBDA_TASK_ROOT}" \
+    --no-cache-dir --retries 10 --timeout 600 --progress-bar off --compile --prefer-binary
 
-# Salin seluruh source code Anda
-COPY . .
+# 🔧 Install TensorFlow secara terpisah
+RUN pip3 install tensorflow-cpu==2.18.0 \
+    --target "${LAMBDA_TASK_ROOT}" \
+    --no-cache-dir --retries 10 --timeout 600 --progress-bar off --compile --prefer-binary
 
-# Buka port 8080
-EXPOSE 8080
+# Salin source code Python ke direktori Lambda
+COPY main.py ${LAMBDA_TASK_ROOT}
 
-ENV PYTHONUNBUFFERED=1
-
-# Jalankan FastAPI
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+# Handler Lambda
+CMD ["main.handler"]
