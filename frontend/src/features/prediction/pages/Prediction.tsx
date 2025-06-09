@@ -147,7 +147,7 @@ const Prediction = () => {
       pdf.text("Hasil Analisis:", 20, yPos + 95);
       pdf.text(`Prediksi: ${analysisResult.prediction}`, 20, yPos + 105);
       pdf.text(
-        `Tingkat Kepercayaan: ${analysisResult.confidence}%`,
+        `Tingkat Kepercayaan: ${analysisResult.confidence.toFixed(2)}%`,
         20,
         yPos + 112,
       );
@@ -218,12 +218,10 @@ const Prediction = () => {
           year: "numeric",
           hour: "2-digit",
           minute: "2-digit",
-        });
-
-        // Create analysis result from API response
+        }); // Create analysis result from API response
         const result = {
           prediction: data.label === "NORMAL" ? "Normal" : "Pneumonia",
-          confidence: Math.round(data.probability * 100), // Convert probability to percentage
+          confidence: parseFloat(data.probability.toFixed(2)), // Format percentage to 2 decimal places
           date: currentDate,
         };
 
@@ -691,9 +689,10 @@ const Prediction = () => {
                             }`}
                             style={{ width: `${analysisResult.confidence}%` }}
                           ></div>
-                        </div>
+                        </div>{" "}
                         <p className="text-xs text-gray-500">
-                          Tingkat kepercayaan: {analysisResult.confidence}%
+                          Tingkat kepercayaan:{" "}
+                          {analysisResult.confidence.toFixed(2)}%
                         </p>
                         <p className="mt-2 text-xs text-gray-400">
                           {analysisResult.date}
