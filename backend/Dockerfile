@@ -1,7 +1,7 @@
 FROM public.ecr.aws/lambda/python:3.10
 
 # Salin model dan requirements
-COPY model_pneumonia.keras ${LAMBDA_TASK_ROOT}/model_pneumonia.keras
+COPY best_val_acc_model.h5 ${LAMBDA_TASK_ROOT}/best_val_acc_model.h5
 COPY requirements.txt .
 
 # Install dependencies dari requirements.txt
