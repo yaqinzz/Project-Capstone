@@ -101,6 +101,6 @@ Berikut adalah panduan singkat penggunaan sistem deteksi Pneumonia:
 6. Anda dapat secara langsung melihat hasilnya, semakin tinggi tingkat kepercayaan akan hasil pneumonia maka anda kemungkinan besar anda didiagnosis terkena pneumonia dan membutuhkan penanganan lebih lanjut.
 
 ## Referensi
-https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia
-Wati, R. A., Irsyad, H., & Al Rivan, M. E. (2020). Klasifikasi Pneumonia Menggunakan Metode Support Vector Machine. J. Algoritm, 1(1), 21-32.
-Maysanjaya, I. M. D., & Dendi, M. (2020). Klasifikasi Pneumonia pada Citra X-rays Paru-paru dengan Convolutional neural network. Jurnal Nasional Teknik Elektro Dan Teknologi Informasi, 9(2), 190-195.
+- https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia
+- Wati, R. A., Irsyad, H., & Al Rivan, M. E. (2020). Klasifikasi Pneumonia Menggunakan Metode Support Vector Machine. J. Algoritm, 1(1), 21-32.
+- Maysanjaya, I. M. D., & Dendi, M. (2020). Klasifikasi Pneumonia pada Citra X-rays Paru-paru dengan Convolutional neural network. Jurnal Nasional Teknik Elektro Dan Teknologi Informasi, 9(2), 190-195.
