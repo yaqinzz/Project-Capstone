@@ -59,6 +59,7 @@ Model ini memiliki kelebihan yaitu adanya kombinasi BatchNormalization + Dropout
 
 ## Hasil Evaluasi Model
 
+![Training, Validation, and Test Accuracy and Loss](https://raw.githubusercontent.com/yaqinzz/Project-Capstone/main/Modelling/Hasil%20Akurasi%20Data%20Training,%20Validation,%20dan%20Testing.png)
 
 
 
