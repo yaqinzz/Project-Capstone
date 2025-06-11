@@ -61,7 +61,35 @@ Model ini memiliki kelebihan yaitu adanya kombinasi BatchNormalization + Dropout
 
 ![Training, Validation, and Test Accuracy and Loss](https://raw.githubusercontent.com/yaqinzz/Project-Capstone/main/Modelling/Hasil%20Akurasi%20Data%20Training,%20Validation,%20dan%20Testing.png)
 
+1. Akurasi (Kiri)
+Grafik kiri menunjukkan akurasi model selama proses pelatihan (Training Accuracy) dan validasi (Validation Accuracy) terhadap jumlah epoch.
+- Akurasi training meningkat secara konsisten seiring bertambahnya epoch, yang mengindikasikan model berhasil mempelajari pola dari data pelatihan.
+- Akurasi validasi menunjukkan fluktuasi yang cukup signifikan, terutama di awal epoch, namun secara umum mengalami peningkatan dan mencapai titik yang sebanding dengan akurasi training di akhir pelatihan.
+- Garis merah putus-putus menunjukkan akurasi data uji (test accuracy), yang tampak stabil dan berada di sekitar nilai 0.86, menandakan model memiliki kemampuan generalisasi yang baik terhadap data yang tidak terlihat saat pelatihan.
+- 
+Kesimpulan: Model berhasil mencapai akurasi tinggi dan stabil di dataset uji, meskipun validasi sempat menunjukkan overfitting ringan di tengah proses.
 
+2. Loss (Kanan)
+Grafik kanan menggambarkan nilai kerugian (Loss) untuk data pelatihan, validasi, dan pengujian terhadap jumlah epoch.
+- Training loss menurun secara konsisten, menunjukkan bahwa model terus meminimalkan kesalahan pada data pelatihan.
+- Validation loss mengalami fluktuasi besar, terutama pada awal epoch. Hal ini bisa menunjukkan ketidaksesuaian sementara antara model dan data validasi (misalnya karena distribusi yang berbeda atau jumlah data yang sedikit).
+- Garis merah putus-putus menunjukkan nilai loss pada data uji (test loss), yang relatif rendah dan stabil, memperkuat bahwa model tidak overfitting secara signifikan.
+Kesimpulan: Meskipun validation loss sempat tidak stabil, rendahnya nilai test loss menunjukkan model memiliki performa generalisasi yang baik dan tidak terlalu overfitting.
+
+Selain akurasi data training, validation, dan testing. Evaluasi juga dilakukan dengan melihat confusion matrixnya. Berikut adalah confusion matrixnya: 
+
+![Confusion Matrix](https://raw.githubusercontent.com/yaqinzz/Project-Capstone/main/Modelling/Confusion%20Matrix.png)
+
+Berdasarkan tabel tersebut dapat dihitung metrik evaluasi yaitu akurasi, presisi, recall, dan F1-Score. 
+- **Accuracy**: `(TP + TN) / Total` = `(395 + 107) / 583` ≈ **86.1%**
+- **Precision (PNEUMONIA)**: `TP / (TP + FP)` = `395 / (395 + 51)` ≈ **88.6%**
+- **Recall (Sensitivity)**: `TP / (TP + FN)` = `395 / (395 + 30)` ≈ **92.9%**
+- **F1-Score**: `2 × (Precision × Recall) / (Precision + Recall)` ≈ **90.7%**
+
+Secara umum Model memiliki **akurasi tinggi** dalam mendeteksi kasus *pneumonia*.
+- **False Negative (FN)** hanya 30, artinya model cukup baik dalam menghindari kesalahan fatal (tidak mendeteksi pasien yang sebenarnya sakit).
+- Namun terdapat **False Positive (FP)** sebanyak 51, yaitu kasus pasien sehat yang salah diklasifikasi sebagai pneumonia.
+- Secara keseluruhan, model ini **cocok untuk digunakan pada sistem deteksi awal penyakit**, karena cenderung mengutamakan sensitivitas (recall) daripada presisi.
 
 ## Penggunaan Sistem Deteksi Pneumonia
 Berikut adalah panduan singkat penggunaan sistem deteksi Pneumonia: 
@@ -73,4 +101,6 @@ Berikut adalah panduan singkat penggunaan sistem deteksi Pneumonia:
 6. Anda dapat secara langsung melihat hasilnya, semakin tinggi tingkat kepercayaan akan hasil pneumonia maka anda kemungkinan besar anda didiagnosis terkena pneumonia dan membutuhkan penanganan lebih lanjut.
 
 ## Referensi
-
+https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia
+Wati, R. A., Irsyad, H., & Al Rivan, M. E. (2020). Klasifikasi Pneumonia Menggunakan Metode Support Vector Machine. J. Algoritm, 1(1), 21-32.
+Maysanjaya, I. M. D., & Dendi, M. (2020). Klasifikasi Pneumonia pada Citra X-rays Paru-paru dengan Convolutional neural network. Jurnal Nasional Teknik Elektro Dan Teknologi Informasi, 9(2), 190-195.
