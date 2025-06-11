@@ -14,31 +14,52 @@ Dataset yang digunakan bersumber dari kaggle dengan link sebagai berikut https:/
 
 ## Model yang digunakan
 Model yang digunakan dalam projek ini adalah model Convolutional Neural Network (CNN) dengan arsitektur Sequential untuk tugas klasifikasi 2 kelas (binary classification) mengingat dataset yang digunakan hanya memiliki dua kelas yaitu pneumonia dan normal. Berikut adalah arsitektur CNN yang kami gunakan dalam projek ini : 
-Arsitektur Model CNN: `sequential_2`
-| Layer (type)                  | Output Shape           | Param #      |
-|------------------------------|------------------------|--------------|
-| **Conv2D** (`conv2d_3`)      | (None, 224, 224, 32)   | 896          |
-| **BatchNormalization**       | (None, 224, 224, 32)   | 128          |
-| **MaxPooling2D**             | (None, 112, 112, 32)   | 0            |
-| **Conv2D** (`conv2d_4`)      | (None, 112, 112, 64)   | 18,496       |
-| **BatchNormalization**       | (None, 112, 112, 64)   | 256          |
-| **MaxPooling2D**             | (None, 56, 56, 64)     | 0            |
-| **Conv2D** (`conv2d_5`)      | (None, 56, 56, 128)    | 73,856       |
-| **BatchNormalization**       | (None, 56, 56, 128)    | 512          |
-| **MaxPooling2D**             | (None, 28, 28, 128)    | 0            |
-| **Flatten**                  | (None, 100352)         | 0            |
-| **Dense** (`dense_3`)        | (None, 128)            | 12,845,184   |
-| **Dropout** (`dropout_3`)    | (None, 128)            | 0            |
-| **Dense** (`dense_4`)        | (None, 2)              | 258          |
+### Arsitektur Model CNN
 
-**Total Parameters**: 12,939,586 (≈ 49.36 MB)  
-**Trainable Parameters**: 12,939,138  
-**Non-trainable Parameters**: 448
+| Layer (type)                   | Output Shape          | Param #     |
+|-------------------------------|------------------------|-------------|
+| conv2d (Conv2D)               | (None, 224, 224, 64)   | 1,792       |
+| batch_normalization           | (None, 224, 224, 64)   | 256         |
+| max_pooling2d (MaxPooling2D)  | (None, 112, 112, 64)   | 0           |
+| dropout (Dropout)             | (None, 112, 112, 64)   | 0           |
+| conv2d_1 (Conv2D)             | (None, 112, 112, 128)  | 73,856      |
+| batch_normalization_1         | (None, 112, 112, 128)  | 512         |
+| max_pooling2d_1 (MaxPooling2D)| (None, 56, 56, 128)    | 0           |
+| dropout_1 (Dropout)           | (None, 56, 56, 128)    | 0           |
+| conv2d_2 (Conv2D)             | (None, 56, 56, 256)    | 295,168     |
+| batch_normalization_2         | (None, 56, 56, 256)    | 1,024       |
+| max_pooling2d_2 (MaxPooling2D)| (None, 28, 28, 256)    | 0           |
+| dropout_2 (Dropout)           | (None, 28, 28, 256)    | 0           |
+| global_average_pooling2d      | (None, 256)            | 0           |
+| dense (Dense)                 | (None, 256)            | 65,792      |
+| batch_normalization_3         | (None, 256)            | 1,024       |
+| dropout_3 (Dropout)           | (None, 256)            | 0           |
+| dense_1 (Dense)               | (None, 2)              | 514         |
 
-Kami menggunakan 
+**Total parameters**: 439,938 (1.68 MB)  
+**Trainable parameters**: 438,530 (1.67 MB)  
+**Non-trainable parameters**: 1,408 (5.50 KB)
 
+Model tersebut adalah Convolutional Neural Network (CNN) bertipe sequential, yang dirancang untuk klasifikasi citra menjadi 2 kelas (binary classification). Berikut adalah penjelasan ringkasnya:
+
+1. Struktur dan Fungsinya
+Blok Convolutional dan Pooling (Feature Extraction):
+- Terdiri dari 3 blok utama conv-pooling yang menangkap fitur dari gambar input.
+- Masing-masing blok memiliki urutan:
+Conv2D → BatchNormalization → MaxPooling2D → Dropout
+- Ukuran filter dan kedalaman meningkat di setiap blok:
+64 → 128 → 256 filters, sehingga semakin dalam, fitur yang ditangkap makin kompleks.
+2. GlobalAveragePooling2D: Mengubah output 3D dari convolution menjadi 1D (flatten), tapi lebih efisien dari Flatten karena rata-rata spasial diambil dari setiap filter, mengurangi jumlah parameter secara drastis.
+3. Fully Connected Layers (Classification):
+- Dense (256 units): lapisan utama untuk mempelajari kombinasi fitur.
+- BatchNormalization + Dropout: mencegah overfitting dan menstabilkan pelatihan.
+- Dense (2 units): output akhir dengan 2 neuron (untuk 2 kelas), biasanya disambung dengan fungsi aktivasi softmax (meskipun tidak terlihat di sini, biasanya ditambahkan di compile atau fit).
+
+Model ini memiliki kelebihan yaitu adanya kombinasi BatchNormalization + Dropout memberikan kestabilan dan mencegah overfitting. GlobalAveragePooling membuat model ringan tanpa mengorbankan akurasi. Arsitektur cukup dalam untuk mendeteksi pola kompleks dari gambar (misalnya: pneumonia vs normal).
 
 ## Hasil Evaluasi Model
+
+
 
 
 ## Penggunaan Sistem Deteksi Pneumonia
